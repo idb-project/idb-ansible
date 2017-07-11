@@ -1,0 +1,6 @@
+Acquire::https::apt-idb.bytemine.net {
+    Verify-Peer "false";
+    CaInfo "/etc/apt/ca_idb.crt";
+    SslCert "/etc/apt/{{ repo_cert }}";
+    SslKey  "/etc/apt/{{ repo_key }}";
+};

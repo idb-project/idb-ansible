@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName {{ idb_vhost }}
+        DocumentRoot /opt/the-idb/public
+        <Directory /opt/the-idb/public>
+          # Relax Apache security settings
+          Options FollowSymLinks
+          AllowOverride all
+          Require all granted
+          # MultiViews must be turned off
+          Options -MultiViews
+        </Directory>
+        PassengerRuby /opt/the-idb/vendor/ruby-2.2.4/bin/ruby
+</VirtualHost>
