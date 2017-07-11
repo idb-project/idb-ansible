@@ -7,3 +7,4 @@ ldap_local: true
 ldap_local_user: testuser
 ldap_local_pass: ""
 ldap_dn: ou=Users,dc=nodomain
+...

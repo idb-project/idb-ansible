@@ -1,8 +1,11 @@
 ---
 - name: Install LDAP server
-  apt: name=slapd state=present
+  apt:
+    name: slapd
+    state: present
 
 - name: Add LDAP DN
   ldap_entry:
    dn: "{{ ldap_dn }}"
    objectClass: organizationalUnit
+...
