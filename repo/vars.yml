@@ -2,8 +2,8 @@
 repo_cert: idb.crt
 repo_key: idb.key
 idb_vhost: idb.vagrantbox.bfr.local
-idb_mysql_password: Q2FjYYBSc2rI4ro
+idb_mysql_password:
 ldap_local: true
 ldap_local_user: testuser
-ldap_local_pass: "{SSHA}D5NToJsIfroBmx+dVdz6Tyk+MuT46mM1"
+ldap_local_pass: ""
 ldap_dn: ou=Users,dc=nodomain
