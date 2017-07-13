@@ -6,6 +6,6 @@
 
 - name: Add LDAP DN
   ldap_entry:
-   dn: "{{ ldap_dn }}"
-   objectClass: organizationalUnit
+    dn: "{{ ldap_dn }}"
+    objectClass: organizationalUnit
 ...
