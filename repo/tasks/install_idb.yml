@@ -12,9 +12,9 @@
   with_items:
    - src: "files/ca_idb.crt"
      dest: "/etc/apt/ca_idb.crt"
-   - src: "{{ repo_cert }}"
+   - src: "files/{{ repo_cert }}"
      dest: "/etc/apt/{{ repo_cert }}"
-   - src: "{{ repo_key }}"
+   - src: "files/{{ repo_key }}"
      dest: "/etc/apt/{{ repo_key }}"
 - name: Create APT config
   template:
