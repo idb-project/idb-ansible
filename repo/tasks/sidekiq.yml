@@ -1,6 +1,6 @@
 ---
-- name: Install sidekiq upstart config
+- name: Install sidekiq systemd service
   copy:
-    src: "files/sidekiq.conf"
-    dest: "/etc/init/sidekiq.conf"
-  notify: reload upstart
+    src: "files/sidekiq.service"
+    dest: "/etc/systemd/system/sidekiq.service"
+- systemd: state=started name=sidekiq
