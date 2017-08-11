@@ -1,10 +1,11 @@
 ---
 - name: install bundler GEM
-  gem: 
+  gem:
     name: bundler
     state: present
     user_install: no
     executable: /opt/the-idb/vendor/ruby-2.2.4/bin/gem
+
 - name: Install database and precompile assets
   shell: "RAILS_ENV=production PATH=/opt/the-idb/vendor/ruby-2.2.4/bin:$PATH
   /opt/the-idb/vendor/ruby-2.2.4/bin/ruby -S  {{ item }}"
@@ -13,4 +14,4 @@
   with_items:
     - bundle exec rake db:migrate
     - bundle exec rake assets:precompile
-
+...

@@ -3,22 +3,27 @@
   apt_key:
    keyserver: keyserver.ubuntu.com
    id: 561F9B9CAC40B2F7
+
 - name: Enable the passenger repo
   apt_repository:
-    repo: "deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main"
+    repo: "deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_distribution_release }} main"
     state: present
+
 - name: Install passenger
   apt:
     name: libapache2-mod-passenger
     state: present
+
 - name: Setup Apache2 VHost for the IDB
   template:
     src: "templates/vhost.conf.j2"
     dest: "/etc/apache2/sites-available/the-idb.conf"
   notify: restart apache2
+
 - name: Symlink the IDB VHost
   file:
     src: "/etc/apache2/sites-available/the-idb.conf"
     dest: "/etc/apache2/sites-enabled/the-idb.conf"
     state: link
   notify: restart apache2
+...
