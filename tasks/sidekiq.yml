@@ -1,6 +1,0 @@
----
-- name: Install sidekiq systemd service
-  copy:
-    src: "files/sidekiq.service"
-    dest: "/etc/systemd/system/sidekiq.service"
-- systemd: state=started name=sidekiq

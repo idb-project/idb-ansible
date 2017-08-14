@@ -10,8 +10,10 @@
     - include: tasks/ldap.yml
       when: ldap_local
     - include: tasks/passenger.yml
-    - include: tasks/sidekiq.yml
     - include: tasks/rake.yml
+  
+  roles:
+    - sidekiq
 
   handlers:
     - include: handlers/main.yml
