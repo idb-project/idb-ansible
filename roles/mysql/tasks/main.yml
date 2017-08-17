@@ -3,6 +3,8 @@
   mysql_db:
    name: idb
    state: present
+  tags:
+    - mysql
 
 - name: Create IDB MySQL user
   mysql_user:
@@ -10,6 +12,8 @@
    password: "{{ idb_mysql_password }}"
    priv: 'idb.*:ALL'
    state: present
+  tags:
+    - mysql
 
 - name: Adjust MySQL user settings in IDB config
   lineinfile:
@@ -17,4 +21,6 @@
     regexp: "password"
     line: "  password: {{ idb_mysql_password }}"
     state: present
+  tags:
+    - mysql
 ...
