@@ -4,14 +4,14 @@
   vars_files:
    - vars/main.yml
 
-  tasks:
-    - include: tasks/install_idb.yml
-    - include: tasks/mysql.yml
-    - include: tasks/ldap.yml
-      when: ldap_local
-    - include: tasks/passenger.yml
-    - include: tasks/sidekiq.yml
-    - include: tasks/rake.yml
+  roles:
+    - idb
+    - mysql
+    - slapd
+      #when: ldap_local
+    - passenger
+    - sidekiq
+    - rake
 
   handlers:
     - include: handlers/main.yml

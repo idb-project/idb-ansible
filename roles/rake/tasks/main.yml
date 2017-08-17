@@ -5,6 +5,8 @@
     state: present
     user_install: no
     executable: /opt/the-idb/vendor/ruby-2.2.4/bin/gem
+  tags:
+    - rake
 
 - name: Install database and precompile assets
   shell: "RAILS_ENV=production PATH=/opt/the-idb/vendor/ruby-2.2.4/bin:$PATH
@@ -14,4 +16,6 @@
   with_items:
     - bundle exec rake db:migrate
     - bundle exec rake assets:precompile
+  tags:
+    - rake
 ...

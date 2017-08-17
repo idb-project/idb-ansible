@@ -4,4 +4,6 @@
     src: "files/sidekiq.conf"
     dest: "/etc/init/sidekiq.conf"
   notify: reload upstart
+  tags:
+    - sidekiq
 ...
