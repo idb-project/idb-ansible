@@ -1,0 +1,5 @@
+---
+- name: get the IDB from it's git repo
+  git:
+    repo: https://github.com/idb-project/the-idb.git
+    dest: '/opt/the-idb'
