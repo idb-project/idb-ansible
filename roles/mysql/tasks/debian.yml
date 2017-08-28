@@ -7,3 +7,15 @@
    - mysql-server
    - libmysqld-dev
 
+- mysql_user:
+    name: 'root'
+    password: "{{ mysql_pass }}"
+    priv: '*.*:ALL,GRANT'
+    host: localhost
+    state: present
+
+- name: create mysql config file with credentials
+  template:
+    src: "templates/my.cnf.j2"
+    dest: "/root/.my.cnf"
+
