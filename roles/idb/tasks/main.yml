@@ -6,7 +6,13 @@
   with_items:
       - redis-server
       - git
+      - curl
+      - gnupg2
   when: ansible_os_family == "Debian"
+
+- name: Enable EPEL repo
+  yum: name=epel-release state=present
+  when: ansible_os_family == "RedHat"
 
 - name: Install some needed packages
   yum:
@@ -15,6 +21,8 @@
   with_items:
       - redis
       - git
+      - curl
+      - gnupg2
   when: ansible_os_family == "RedHat"
 
 - include: apt.yml
