@@ -1,0 +1,24 @@
+---
+
+- name: Enable the passenger repo
+  get_url:
+    url: https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
+    dest: /etc/yum.repos.d/passenger.repo
+  tags:
+    - passenger
+
+- name: Install passenger
+  yum:
+    name: mod-passenger
+    state: present
+  tags:
+    - passenger
+
+- name: Setup Apache2 VHost for the IDB
+  template:
+    src: "templates/vhost.conf.j2"
+    dest: "/etc/httpd/conf.d//the-idb.conf"
+  notify:
+    - restart apache2
+  tags:
+    - passenger
