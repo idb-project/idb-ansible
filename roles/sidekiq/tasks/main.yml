@@ -1,19 +1,8 @@
 ---
 # tasks file for sidekiq
-- name: Install sidekiq upstartservice
-  copy:
-    src: "files/sidekiq.conf"
-    dest: "/etc/init/sidekiq.conf"
+- include: upstart.yml
   notify: reload upstart
   when: (ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14")
 
-- name: Install sidekiq systemd service
-  copy:
-    src: "files/sidekiq.service"
-    dest: "/etc/systemd/system/sidekiq.service"
+- include: systemd.yml
   when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7") or (ansible_distribution == "Debian" and ansible_distribution_major_version >= "8") or  (ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "16")
-
-- systemd: state=started name=sidekiq
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7") or (ansible_distribution == "Debian" and ansible_distribution_major_version >= "8") or (ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "16")
-
-
