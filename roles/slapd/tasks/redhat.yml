@@ -1,0 +1,11 @@
+---
+- name: Install LDAP server
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - openldap-servers
+    - openldap-clients
+  tags:
+    - slapd
+...

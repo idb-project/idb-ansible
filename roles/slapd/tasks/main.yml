@@ -1,12 +1,8 @@
 ---
-- name: Install LDAP server
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - slapd
-    - ldap-utils
-    - ldapvi
-  tags:
-    - slapd
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
 ...
