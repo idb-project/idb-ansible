@@ -6,16 +6,8 @@
    - python-mysqldb
    - mysql-server
    - libmysqld-dev
-
-- mysql_user:
-    name: 'root'
-    password: "{{ mysql_pass }}"
-    priv: '*.*:ALL,GRANT'
-    host: localhost
-    state: present
-
-- name: create mysql config file with credentials
-  template:
-    src: "templates/my.cnf.j2"
-    dest: "/root/.my.cnf"
+- name: Update MySQL root password
+  shell: >
+    mysql -NBe
+    'SET PASSWORD FOR "root"@"localhost" = PASSWORD("{{ mysql_pass }}");'
 
