@@ -5,10 +5,13 @@
     description: Passenger repo
     baseurl: https://oss-binaries.phusionpassenger.com/yum/passenger/el/$releasever/$basearch
     gpgkey: https://packagecloud.io/gpg.key
-    repo_gpgcheck: yes
   tags:
     - passenger
 
+- name: Install Apache2
+  yum:
+    name: httpd
+    state: present
 - name: Install passenger
   yum:
     name: passenger
