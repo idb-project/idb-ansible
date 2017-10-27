@@ -1,8 +1,10 @@
 ---
+use_repo: false
+mysql_pass: Aing7aixah:shai
 repo_cert: idb.crt
 repo_key: idb.key
 idb_vhost: idb.test.local
-idb_mysql_password: passme
+idb_mysql_password: yu0oe\n1phie{Qu
 #ldap_local: true
 #ldap_local_user: testuser
 #ldap_local_pass: "passme"

@@ -4,7 +4,7 @@
   vars_files:
    - vars/main.yml
 
- roles:
+  roles:
     - idb
     - mysql
     - slapd
@@ -14,4 +14,4 @@
     - rake
 
   handlers:
-    - include: handlers/main.yml
+    - import_tasks: handlers/main.yml

@@ -1,7 +1,7 @@
 ---
 
-- include: apt.yml
+- include_tasks: apt.yml
   when: ansible_os_family == "Debian"
 
-- include: yum.yml
+- include_tasks: yum.yml
   when: ansible_os_family == "RedHat"

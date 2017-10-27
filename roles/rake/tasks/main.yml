@@ -1,9 +1,9 @@
 ---
-- include: repo.yml
+- include_tasks: repo.yml
   when: use_repo
   tags:
     - rake
-- include: rvm.yml
+- include_tasks: rvm.yml
   when: use_repo == false
   tags:
     - rake
