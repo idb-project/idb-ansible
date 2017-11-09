@@ -1,0 +1,14 @@
+[Unit]
+Description=The IDB sidekiq service
+After=syslog.target network.target remote-fs.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/the-idb/
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" "RAILS_ENV=production"
+ExecStart=/usr/local/rvm/bin/bootup_sidekiq -L log/sidekiq.log
+User=idb
+Group=idb
+
+[Install]
+WantedBy=multi-user.target

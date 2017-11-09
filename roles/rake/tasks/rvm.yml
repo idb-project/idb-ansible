@@ -1,0 +1,23 @@
+---
+- name: install bundler GEM
+  gem:
+    name: bundler
+    state: present
+    user_install: no
+  tags:
+    - rake
+
+- name: Install database and precompile assets
+  command: "bash -lc RAILS_ENV=production {{ item }}"
+  args:
+    chdir: /opt/the-idb
+  with_items:
+    - rake db:migrate
+    - rake assets:precompile
+  tags:
+    - rake
+- name: Install RVM wrapper for sidekiq
+  command: "bash -lc rvm wrapper current bootup sidekiq"
+  args:
+    creates: /usr/local/rvm/bin/bootup_sidekiq
+...

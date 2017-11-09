@@ -1,0 +1,38 @@
+- name: Install MySQL community repo
+  yum:
+     name: "https://dev.mysql.com/get/mysql57-community-release-el{{ansible_distribution_major_version}}-11.noarch.rpm"
+     state: present
+
+- name: Install MySQL server
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - python-ldap
+   - mysql-community-server
+   - mysql-community-devel
+   - MySQL-python
+
+- name: Start service for sidekiq
+  systemd:
+    name: mysqld
+    state: started
+    daemon_reload: yes
+
+- name: "Get temporary MySQL root password"
+  shell: "grep 'A temporary password is generated for' /var/log/mysqld.log | awk '{print $NF}'"
+  register: tmp_pass
+
+- name: Create mysql config file with temporary credentials
+  template:
+    src: "templates/my-tmp.cnf.j2"
+    dest: "/root/.my-tmp.cnf"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Update MySQL root password
+  shell: >
+    mysql --defaults-extra-file=/root/.my-tmp.cnf --connect-expired-password -NBe
+    'SET PASSWORD FOR "root"@"localhost" = PASSWORD("{{ mysql_pass }}");'
+

@@ -1,4 +1,19 @@
 ---
+
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Create mysql config file with credentials
+  template:
+    src: "templates/my.cnf.j2"
+    dest: "/root/.my.cnf"
+    owner: root
+    group: root
+    mode: 0600
+
 - name: Create the IDB database
   mysql_db:
    name: idb
@@ -23,4 +38,7 @@
     state: present
   tags:
     - mysql
+
+
+
 ...

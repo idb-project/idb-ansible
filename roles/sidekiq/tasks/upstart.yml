@@ -1,0 +1,12 @@
+---
+- name: Create upstart-config for sidekiq
+  copy:
+    src: "files/sidekiq_repo.conf"
+    dest: "/etc/init/sidekiq.conf"
+  when: use_repo
+
+- name: Create upstart-config for sidekiq
+  copy:
+    src: "files/sidekiq_rvm.conf"
+    dest: "/etc/init/sidekiq.conf"
+  when: use_repo == false

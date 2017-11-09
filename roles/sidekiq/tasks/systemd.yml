@@ -1,0 +1,20 @@
+---
+- name: Create systemd-service for sidekiq
+  copy:
+    src: "files/sidekiq_repo.service"
+    dest: "/etc/system/system/sidekiq.service"
+  when: use_repo
+
+- name: Create systemd-service for sidekiq
+  copy:
+    src: "files/sidekiq_rvm.service"
+    dest: "/etc/systemd/system/sidekiq.service"
+  when: use_repo == false
+
+
+- name: Start service for sidekiq
+  systemd:
+    name: sidekiq
+    state: started
+    daemon_reload: yes
+

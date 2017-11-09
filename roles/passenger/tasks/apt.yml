@@ -1,0 +1,44 @@
+---
+- name: Get passenger repo key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 561F9B9CAC40B2F7
+  tags:
+    - passenger
+
+- name: Enable the passenger repo
+  apt_repository:
+    repo: "deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_distribution_release }} main"
+    state: present
+  tags:
+    - passenger
+
+- name: Install Apache2 and passenger
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - apache2
+      - libapache2-mod-passenger
+  tags:
+    - passenger
+
+- name: Setup Apache2 VHost for the IDB
+  template:
+    src: "templates/vhost.conf.j2"
+    dest: "/etc/apache2/sites-available/the-idb.conf"
+  notify:
+    - restart apache2
+  tags:
+    - passenger
+
+- name: Symlink the IDB VHost
+  file:
+    src: "/etc/apache2/sites-available/the-idb.conf"
+    dest: "/etc/apache2/sites-enabled/the-idb.conf"
+    state: link
+  notify:
+    - restart apache2
+  tags:
+    - passenger
+...

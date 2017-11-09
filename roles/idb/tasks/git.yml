@@ -1,0 +1,13 @@
+---
+- name: get the IDB from it's git repo
+  git:
+    repo: https://github.com/idb-project/the-idb.git
+    dest: '/opt/the-idb'
+    force: yes
+
+- name: symlink config files
+  file:
+   src: /opt/the-idb/config-example
+   dest: /opt/the-idb/config
+   state: link
+   force: yes

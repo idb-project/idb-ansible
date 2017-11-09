@@ -1,0 +1,11 @@
+---
+- name: install bundler GEM
+  gem:
+    name: bundler
+    state: present
+    user_install: no
+    executable: /opt/the-idb/vendor/ruby-2.2.4/bin/gem
+  when: use_repo
+  tags:
+    - rake
+...

@@ -1,0 +1,13 @@
+- name: Install MySQL Server
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - python-mysqldb
+   - mysql-server
+   - libmysqld-dev
+- name: Update MySQL root password
+  shell: >
+    mysql -NBe
+    'SET PASSWORD FOR "root"@"localhost" = PASSWORD("{{ mysql_pass }}");'
+

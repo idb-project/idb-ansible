@@ -1,0 +1,43 @@
+---
+- name: Copy config files and certs
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+   - src: "files/ca_idb.crt"
+     dest: "/etc/apt/ca_idb.crt"
+   - src: "files/{{ repo_cert }}"
+     dest: "/etc/apt/{{ repo_cert }}"
+   - src: "files/{{ repo_key }}"
+     dest: "/etc/apt/{{ repo_key }}"
+  tags:
+    - idb
+
+- name: Create APT config
+  template:
+     src: "templates/apt-idb.conf.j2"
+     dest: "/etc/apt/apt.conf.d/99idb"
+  tags:
+    - idb
+
+- name: Install repo key
+  apt_key:
+    data: "{{ lookup('file', 'idb.gpg') }}"
+    state: present
+  tags:
+    - IDB
+
+- name: Install IDB apt repo
+  apt_repository:
+   repo: "deb https://apt-idb.bytemine.net {{ ansible_distribution_release }} main"
+   state: present
+  tags:
+    - idb
+
+- name: Install the IDB itself
+  apt:
+   name: the-idb
+   state: present
+   update_cache: yes
+  tags:
+    - idb

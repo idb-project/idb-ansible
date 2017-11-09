@@ -1,0 +1,30 @@
+---
+- name: Enable the passenger repo
+  yum_repository:
+    name: passenger
+    description: Passenger repo
+    baseurl: https://oss-binaries.phusionpassenger.com/yum/passenger/el/$releasever/$basearch
+    gpgkey: https://packagecloud.io/gpg.key
+  tags:
+    - passenger
+
+- name: Install Apache2
+  yum:
+    name: httpd
+    state: present
+- name: Install passenger
+  yum:
+    name: passenger
+    state: present
+    disable_gpg_check: yes
+  tags:
+    - passenger
+
+- name: Setup Apache2 VHost for the IDB
+  template:
+    src: "templates/vhost.conf.j2"
+    dest: "/etc/httpd/conf.d/the-idb.conf"
+  notify:
+    - restart apache2
+  tags:
+    - passenger
